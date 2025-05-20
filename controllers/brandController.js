@@ -2,12 +2,17 @@ const Brand = require('../models/brandModel');
 
 
 const createBrand = async (req, res) => {
+  console.log(req.body)
+  console.log(req.user.isAdmin)
+  const { name } = req.body;
   try {
-    const { name } = req.body;
+    if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
     const newBrand = await Brand.create({ name });
     res.status(200).send({ message: "Brand Created Successfully", success: true });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(500).send({ error: error });
   }
 };
 
@@ -42,7 +47,9 @@ const updateBrand = async (req, res) => {
   try {
     const { id } = req.params;
     const { name } = req.body;
-
+  if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
     const [updated] = await Brand.update({ name }, { where: { id } });
 
     if (updated) {
@@ -60,6 +67,9 @@ const updateBrand = async (req, res) => {
 const deleteBrand = async (req, res) => {
   try {
     const { id } = req.params;
+    if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
     const deleted = await Brand.destroy({ where: { id } });  
     if (!deleted) {
       res.status(404).send({ error: "Brand not found" });

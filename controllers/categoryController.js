@@ -2,6 +2,9 @@ const Category = require('../models/categoryModel')
 
 createCategory = async(req,res)=>{
     try {
+      if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
     const { name } = req.body;
     const newCategory = await Category.create({ name });
     res.status(200).send({ message: "Category Created Successfully", success: true });
@@ -40,6 +43,9 @@ const getCategoryByID = async (req, res) => {
 
 const updateCategory = async (req, res) => {
   try {
+    if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
     const { id } = req.params;
     const { name } = req.body;
 
@@ -57,6 +63,9 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   try {
+    if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
     const { id } = req.params;
 
     const deleted = await Category.destroy({ where: { id } });

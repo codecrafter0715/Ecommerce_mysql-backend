@@ -3,6 +3,9 @@ const Product = require('../models/productModel')
 
 createProduct = async(req,res)=>{
     try {
+      if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
        const newProd = await Product.create(req.body)
         res.status(200).send({message:"Product added successfully",success:true})
     } catch (error) {
@@ -39,6 +42,9 @@ const getProductByID = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
+    if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
     const { id } = req.params;
     const { name, price, description } = req.body;
 
@@ -59,6 +65,9 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
+    if(!req.user.isAdmin){
+      res.status(401).send({message:"Not Authorized"})
+    }
     const { id } = req.params;
 
     const deleted = await Product.destroy({ where: { id } });
