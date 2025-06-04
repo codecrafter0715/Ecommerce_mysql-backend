@@ -20,7 +20,7 @@ const Product = sequelize.define('Product', {
     },
     price: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     category_id: {
         type: DataTypes.INTEGER,
@@ -30,9 +30,9 @@ const Product = sequelize.define('Product', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    Quality: {
+    Quantity: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false  
     },
     Instock: {
         type: DataTypes.BOOLEAN,
@@ -45,7 +45,12 @@ const Product = sequelize.define('Product', {
     updatedAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
-    }
+    },
+    image:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  }
 }, {
     tableName: 'Products',
     timestamps: true
@@ -55,15 +60,15 @@ const Product = sequelize.define('Product', {
 // Associations with category and brand
 
 Product.belongsTo(Brand,{
-    foreignkey:'id',
+    foreignKey:'brand_id',   
     as:'Brands'
 })
 
 Product.belongsTo(Category, {
-    foreignkey:'id',
+    foreignKey:'category_id', 
     as:'Categories'
-
 })
+
 
 
 module.exports = Product;

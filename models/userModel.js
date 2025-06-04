@@ -30,4 +30,5 @@ const User = sequelize.define('User', {
   timestamps: true  //at created updated table its is true ,otherwise false
  });
 
+ 
 module.exports = User;

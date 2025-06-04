@@ -11,10 +11,15 @@ const Category = sequelize.define('Category', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
+  },
+  image:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
   }
 }, {
   tableName: 'Categories',
-  timestamps: false  //at created updated table its is true ,otherwise false
+  timestamps: true  //at created updated table its is true ,otherwise false
 });
 
 module.exports = Category;

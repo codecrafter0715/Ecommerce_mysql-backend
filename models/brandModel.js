@@ -11,10 +11,15 @@ const Brand = sequelize.define('Brand', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
+  },
+  image:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
   }
 }, {
   tableName: 'Brands',
-  timestamps: false  //at created updated table its is true ,otherwise false
+  timestamps: true  //at created updated table its is true ,otherwise false
 });
 
 module.exports = Brand;

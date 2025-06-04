@@ -71,7 +71,6 @@ const getUserInfo = async(req, res) => {
 };
 
 
-
 module.exports = {
     registerUser,
     LoginUser,
